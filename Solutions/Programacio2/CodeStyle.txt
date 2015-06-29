@@ -1,0 +1,11 @@
+FileName:
+PascalCase
+
+Variables:
+camelCase without Hungarian Notation
+
+ClassName:
+PascalCase
+
+Method Names:
+camelCase
