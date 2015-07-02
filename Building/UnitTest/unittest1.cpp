@@ -191,7 +191,6 @@ namespace UnitTest
 			Assert::AreEqual(s.string, "\0");
 		}
 
-		/*
 		TEST_METHOD(TestMethod_constructChain)
 		{
 			String s("%s", "hello");
@@ -208,12 +207,13 @@ namespace UnitTest
 			Assert::AreEqual(a.string, "hello");
 		}
 
-		TEST_METHOD(TestMethod_destructor)
+		/*TEST_METHOD(TestMethod_destructor)
 		{
 		String s("hello");
 		s.~String();
+
 		Assert::IsTrue(s.string == NULL);
-		}
+		}*/
 
 		TEST_METHOD(TestMethod_operatorEqualEqual)
 		{
@@ -308,7 +308,7 @@ namespace UnitTest
 			s.clear();
 
 			Assert::IsTrue(s.string[0] == '\0');
-		}*/
+		}
 
 	};
 }

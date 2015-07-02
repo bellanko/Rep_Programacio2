@@ -64,9 +64,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Log.h" />
     <ClInclude Include="point2D.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
