@@ -7,6 +7,18 @@
 
 #define TMP_STRING_SIZE 4096
 
+#define MIN(a, b) (a < b ? a:b)
+#define MAX(a, b) (a > b ? a:b)
+
+template<class TYPE>
+void swap_values(TYPE& a, TYPE& b)
+{
+	TYPE tmp;
+	tmp = a;
+	a = b;
+	b = tmp;
+}
+
 class String {
 
 public:
@@ -70,7 +82,10 @@ public:
 		strcpy_s(string, size, s.string);
 	}
 
-	~String();
+	~String()
+	{
+		delete[] string;
+	}
 
 	//Operators
 	bool operator==(const String& s) const
@@ -227,6 +242,9 @@ public:
 		{
 			if (last == 0)
 				last = size;
+
+			if (last < first)
+				swap_values(first, last);
 
 			unsigned int x = last + 1;
 
