@@ -65,8 +65,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DynArray.h" />
+    <ClInclude Include="DLinked_List.h" />
     <ClInclude Include="point2D.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="Qeue.h" />
+    <ClInclude Include="Stack.h" />
     <ClInclude Include="String.h" />
   </ItemGroup>
   <ItemGroup>

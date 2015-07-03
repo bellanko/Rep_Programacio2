@@ -206,7 +206,7 @@ public:
 	/**
 	* const read operator access directly to a position in the list
 	*/
-	const p2List<tdata>& operator +=(const p2List<tdata>& other_list)
+	const p2List<tdata>& operator+=(const p2List<tdata>& other_list)
 	{
 		p2List_item<tdata>*   p_item = other_list.start;
 
@@ -224,7 +224,7 @@ public:
 	{
 		if(other_list.start != NULL)
 		{
-			
+						
 			for (unsigned int i = 0; i < other_list.count(); i++)
 			{
 				if (start == NULL || after == size)

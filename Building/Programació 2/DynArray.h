@@ -36,7 +36,18 @@ public:
 		return data[index];
 	}
 
-	//Memory Managment
+	const DynArray<VALUE>& operator+=(const DynArray<VALUE>& toAdd)
+	{
+		if ((num_elements + toAdd.num_elements + 1) > allocated_memory)
+			reallocate(allocated_memory + toAdd.num_elements);
+
+		for (unsigned int i = 0; i < toAdd.num_elements; i++)
+			pushback(toAdd[i]);
+
+		return (*this);
+	}
+
+	//Data Managment
 	void pushback(const VALUE& value)	//Inserts a new value at the end of our array.
 	{
 		if (num_elements >= allocated_memory)
@@ -100,6 +111,81 @@ public:
 		{
 			swap_values(data[i], data[num_elements - i]);
 		}
+	}
+
+	unsigned int DoBubbleSort()
+	{
+		unsigned int ifs = 0;
+		bool repeat = true;
+
+		while (repeat)
+		{
+			repeat = false;
+			for (unsigned int i = 0; i < (num_elements - 1); i++)
+			{
+				ifs++;
+				if (data[i] > data[(i + 1)])
+				{
+					swap_values(data[i], data[(i + 1)]);
+					repeat = true;
+				}
+			}
+		}
+		return ifs;
+	}
+
+	unsigned int DoBubbleSortBetter()
+	{
+		unsigned int ifs = 0;
+		bool repeat = true;
+		unsigned int lastSwap = num_elements;
+		unsigned int lastSwapCount = num_elements;
+
+		while (repeat)
+		{
+			repeat = false;
+			for (unsigned int i = 0; i < (lastSwap - 1); i++)
+			{
+				ifs++;
+				if (data[i] > data[(i + 1)])
+				{
+					swap_values(data[i], data[(i + 1)]);
+					repeat = true;
+					lastSwapCount = i - 1;
+				}
+			}
+			lastSwap = lastSwapCount;
+		}
+		return ifs;
+	}
+
+	unsigned int CombSort()
+	{
+		unsigned int ifs = 0;
+		bool repeat = true;
+		unsigned int compare = 1;
+
+		compare = num_elements * 0.7;
+
+		while (repeat)
+		{
+			repeat = false;
+			for (unsigned int i = 0; i < (num_elements - compare); i++)
+			{
+				ifs++;
+				if (data[i] > data[(i + compare)])
+				{
+					swap_values(data[i], data[(i + compare)]);
+					repeat = true;
+				}
+			}
+			if (compare > 1)
+			{
+				compare--;
+				repeat = true;
+			}
+		}
+		return ifs;
 	}*/
 
 	bool insertDynArray(DynArray<VALUE>& toAdd, unsigned int position)

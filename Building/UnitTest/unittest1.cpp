@@ -5,6 +5,10 @@
 #include "../Programació 2/Projectile.h"
 #include "../Programació 2/String.h"
 #include "../Programació 2/DynArray.h"
+#include "../Programació 2/DLinked_List.h"
+#include "../Programació 2/Stack.h"
+#include "../Programació 2/Qeue.h"
+
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -411,6 +415,35 @@ namespace UnitTest
 			Assert::AreEqual(array[2], 3);
 		}
 
+		TEST_METHOD(DynArray_operatorPlusEqual)
+		{
+			DynArray<int> array(5);
+
+			array.pushback(1);
+			array.pushback(2);
+			array.pushback(4);
+			array.pushback(5);
+			array.pushback(8);
+
+			DynArray<int> array2;
+
+			array2.pushback(991);
+			array2.pushback(992);
+			array2.pushback(993);
+
+			array += array2;
+
+			Assert::AreEqual((int)array.count(), 8);
+			Assert::AreEqual((int)array[0], 1);
+			Assert::AreEqual((int)array[1], 2);
+			Assert::AreEqual((int)array[2], 4);
+			Assert::AreEqual((int)array[3], 5);
+			Assert::AreEqual((int)array[4], 8);
+			Assert::AreEqual((int)array[5], 991);
+			Assert::AreEqual((int)array[6], 992);
+			Assert::AreEqual((int)array[7], 993);
+		}
+
 		TEST_METHOD(DynArray_insert)
 		{
 			DynArray<int> array;
@@ -465,6 +498,179 @@ namespace UnitTest
 			Assert::AreEqual((int)1, array[0]);
 			Assert::AreEqual((int)2, array[1]);
 			Assert::AreEqual((int)3, array[2]);
+		}
+	};
+
+
+	// DLinkedList ----------------------------------------
+	TEST_CLASS(DLinked_ListClass)
+	{
+	public:
+
+		// P2List delete few nodes ----------------------------------------
+		TEST_METHOD(DoubleLinkedList_delNodes_mid)
+		{
+			DSList<int> l;
+			l.add(1);
+			l.add(2);
+			l.add(3);
+			l.add(4);
+			l.delNodes(1, 2);
+			Assert::AreEqual((int)1, l.start->value);
+			Assert::AreEqual((int)4, l.end->value);
+			Assert::AreEqual((unsigned int)2, l.count());
+		}
+		// P2List delete few nodes ----------------------------------------
+		TEST_METHOD(DoubleLinkedList_delNodes_begin)
+		{
+			DSList<int> l;
+			l.add(1);
+			l.add(2);
+			l.add(3);
+			l.add(4);
+			l.delNodes(0, 3);
+			Assert::AreEqual((int)4, l.start->value);
+			Assert::AreEqual((int)4, l.end->value);
+			Assert::AreEqual((unsigned int)1, l.count());
+		}
+		// P2List delete few nodes ----------------------------------------
+		TEST_METHOD(DoubleLinkedList_delNodes_end)
+		{
+			DSList<int> l;
+			l.add(1);
+			l.add(2);
+			l.add(3);
+			l.add(4);
+			l.delNodes(2, 100);
+			Assert::AreEqual((int)1, l.start->value);
+			Assert::AreEqual((int)2, l.end->value);
+			Assert::AreEqual((unsigned int)2, l.count());
+		}
+
+		TEST_METHOD(DoubleLinkedList_operator_Test)
+		{
+			DSList<int> array;
+			array.add(3);
+			array.add(2);
+			array.add(1);
+
+			Assert::AreEqual((int)3, array[0]);
+			Assert::AreEqual((int)2, array[1]);
+			Assert::AreEqual((int)1, array[2]);
+		}
+
+		TEST_METHOD(DoubleLinkedList_BubbleSort_Test)
+		{
+			DSList<int> array;
+			array.add(1);
+			array.add(3);
+			array.add(2);
+
+			array.DoBubbleSort();
+
+
+			Assert::AreEqual((int)1, array[0]);
+			Assert::AreEqual((int)2, array[1]);
+			Assert::AreEqual((int)3, array[2]);
+		}
+
+		TEST_METHOD(DoubleLinkedList_operatorPlusEqualTest)
+		{
+			DSList<int> a;
+			a.add(1);
+			a.add(2);
+			a.add(3);
+
+			DSList<int> b;
+			b.add(4);
+			b.add(5);
+			b.add(6);
+
+			a += b;
+
+			Assert::AreEqual((int)1, a[0]);
+			Assert::AreEqual((int)2, a[1]);
+			Assert::AreEqual((int)3, a[2]);
+			Assert::AreEqual((int)4, a[3]);
+			Assert::AreEqual((int)5, a[4]);
+			Assert::AreEqual((int)6, a[5]);
+		}
+
+		TEST_METHOD(ListInsert)
+		{
+			DSList<int> mylist;
+			DSList<int> mylist2;
+			mylist2.add(1);
+			mylist2.add(2);
+			mylist2.add(3);
+			DSList<int> mylist3;
+			mylist3.add(4);
+			mylist3.add(5);
+			mylist3.add(6);
+			mylist.InsertAfter(0, mylist2);
+			Assert::AreEqual(mylist[0], 1);
+			Assert::AreEqual(mylist[1], 2);
+			Assert::AreEqual(mylist[2], 3);
+			mylist.InsertAfter(1, mylist3);
+			Assert::AreEqual(mylist[0], 1);
+			Assert::AreEqual(mylist[1], 2);
+			Assert::AreEqual(mylist[2], 4);
+			Assert::AreEqual(mylist[3], 5);
+			Assert::AreEqual(mylist[4], 6);
+			Assert::AreEqual(mylist[5], 3);
+			mylist.InsertAfter(0, mylist3);
+			Assert::AreEqual(mylist[0], 1);
+			Assert::AreEqual(mylist[1], 4);
+			Assert::AreEqual(mylist[2], 5);
+			Assert::AreEqual(mylist[3], 6);
+			Assert::AreEqual(mylist[4], 2);
+			Assert::AreEqual(mylist[5], 4);
+			Assert::AreEqual(mylist[6], 5);
+			Assert::AreEqual(mylist[7], 6);
+			Assert::AreEqual(mylist[8], 3);
+			Assert::IsTrue((DSLNode<int>*) &mylist[0] == mylist.start);
+			Assert::IsTrue((DSLNode<int>*) &mylist[8] == mylist.end);
+		}
+	};
+
+	// Qeue ----------------------------------------
+	TEST_CLASS(UnitTestQeue)
+	{
+	public:
+		TEST_METHOD(qeue_Pop)
+		{
+			Qeue<int> a;
+
+			a.push(1);
+			a.push(2);
+			a.push(3);
+
+			int pop;
+
+			a.pop(pop);
+
+			Assert::AreEqual((int)1, pop);
+		}
+
+	};
+
+	// Stack ----------------------------------------
+	TEST_CLASS(UnitTestStack)
+	{
+	public:
+		TEST_METHOD(stack_Pop)
+		{
+			Stack<int> a;
+
+			a.pushBack(1);
+			a.pushBack(2);
+			a.pushBack(3);
+
+			int pop;
+
+			a.pop(pop);
+
+			Assert::AreEqual((int)3, pop);
 		}
 	};
 
